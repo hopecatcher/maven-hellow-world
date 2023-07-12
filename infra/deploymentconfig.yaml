@@ -1,0 +1,41 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: hello-world
+  name: hello-world
+  namespace: java-app
+spec:
+  replicas: 1
+  selector:
+    app: hello-world
+  strategy:
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+      - image: image-registry.openshift-image-registry.svc:5000/maven-app/hello-world:latest
+        imagePullPolicy: Always
+        name: hello-world
+        ports:
+        - containerPort: 8778
+          protocol: TCP
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 8443
+          protocol: TCP
+      restartPolicy: Always
+  triggers:
+  - type: ConfigChange 
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - hello-world
+      from:
+        kind: ImageStreamTag
+        name: hello-world:latest
+    type: ImageChange  
