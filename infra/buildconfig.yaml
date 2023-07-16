@@ -19,5 +19,5 @@ spec:
     to:
       kind: ImageStreamTag
       name: hello-world:latest
-triggers:
-  - type: ConfigChange
+  triggers:
+    - type: ConfigChange
