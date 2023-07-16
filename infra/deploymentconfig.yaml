@@ -31,11 +31,3 @@ spec:
       restartPolicy: Always
   triggers:
   - type: ConfigChange 
-  - imageChangeParams:
-      automatic: true
-      containerNames:
-      - hello-world
-      from:
-        kind: ImageStreamTag
-        name: hello-world:latest
-    type: ImageChange  
