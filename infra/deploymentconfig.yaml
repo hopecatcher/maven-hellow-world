@@ -29,5 +29,3 @@ spec:
         - containerPort: 8443
           protocol: TCP
       restartPolicy: Always
-  triggers:
-  - type: ConfigChange 
