@@ -6,8 +6,12 @@ metadata:
   name: hello-world
   namespace: java-app
 spec:
-  tls:
-    termination: edge
   to:
     kind: Service
     name: hello-world
+  port:
+    targetPort: 8080-tcp
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
