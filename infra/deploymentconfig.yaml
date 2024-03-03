@@ -6,7 +6,7 @@ metadata:
   name: hello-world
   namespace: java-app
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     app: hello-world
   strategy:
