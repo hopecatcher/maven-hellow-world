@@ -1,0 +1,57 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: maven-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: maven-app
+  namespace: maven-app
+spec:
+  type: ClusterIP
+  selector:
+    app: maven
+  ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    - name: 8443-tcp
+      port: 8443
+      protocol: TCP
+      targetPort: 8443
+    - name: 8778-tcp
+      port: 8778
+      protocol: TCP
+      targetPort: 8778
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maven-app
+  namespace: maven-app
+  labels:
+    app: maven
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: maven
+  template:
+    metadata:
+      labels:
+        app: maven
+    spec:
+      containers:
+        - name: maven-app
+          image: mennatallahshaaban/maven-app:0.2
+          ports:
+          - containerPort: 8778
+            protocol: TCP
+          - containerPort: 8080
+            protocol: TCP
+          - containerPort: 8443
+            protocol: TCP
+
